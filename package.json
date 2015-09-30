@@ -1,0 +1,42 @@
+{
+  "name": "universal-js-module",
+  "description": "Universal JavaScript module with ES 6",
+  "version": "1.0.0",
+  "author": "Patrick Arlt <patrick.arlt@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/patrickarlt/universal-js-module/issues"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-runtime": "^5.8.25",
+    "babelify": "^6.3.0",
+    "browser-run": "2.6.0",
+    "browserify": "^11.2.0",
+    "gh-release": "^2.0.1",
+    "semistandard": "*",
+    "tap-spec": "^4.1.0",
+    "tape": "^4.2.0"
+  },
+  "homepage": "https://github.com/patrickarlt/universal-js-module",
+  "keywords": [],
+  "license": "Apache-2.0",
+  "main": "dist/node.js",
+  "browser": {
+    "main": "dist/browser.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickarlt/universal-js-module.git"
+  },
+  "scripts": {
+    "test": "npm run test:browser && npm run test:node",
+    "test:browser": "semistandard src test && browserify ./test/index.js -t [ babelify ] | browser-run | tap-spec",
+    "test:node": "babel-node ./test/index.js | tap-spec",
+    "compile": "npm run compile:browser && npm run compile:node",
+    "compile:node": "babel src -d dist/node --optional runtime",
+    "compile:browser": "browserify ./src/index.js -o dist/browser.js -t [babelify --optional runtime] --standalone universal"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.1.1"
+  }
+}
